@@ -47,6 +47,7 @@ class Usuario
 
     private function validaSenha(string $senha) : void
     {
+        $senha = trim($senha); // A função trim remove espaços e outros caracteres vazios do início e do fim da string. O segundo parâmetro opcional é a lista de caracteres que serão retirados da string.
         $tamanhoSenha = strlen($senha);
         if ($tamanhoSenha > 6) {
             $this->senha = $senha;
