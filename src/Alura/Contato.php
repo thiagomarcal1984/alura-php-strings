@@ -12,7 +12,6 @@ class Contato
     public function __construct(string $email, string $endereco, string $cep, string $telefone)
     {
         $this->email = $email;
-        $this->telefone = $telefone;
 
         if ($this->validaEmail($email) !== false) 
         {
@@ -21,11 +20,30 @@ class Contato
             $this->setEmail("E-mail inválido.");
         }
 
+        if ($this->validaTelefone($telefone)) {
+            $this->setTelefone($telefone);
+        } else {
+            $this->setTelefone("Telefone inválido.");
+        }
+
         $this->endereco = $endereco;
         $this->cep = $cep;
     }
 
-    public function setEmail($email) 
+    public function validaTelefone(string $telefone) : int
+    {
+        // Telefone fixo: 4321-6789
+        $resultado = preg_match('/^[0-9]{4}-[0-9]{4}$/', $telefone, $encontrados); // preg_match é uma função de 3 parms: padrão, onde será feita a busca, e a referência onde serão guardados os resultados.
+        // var_dump(($resultado)); // preg_match retorna 3 valores: 1 se encontrar o padrão, 0 se não encontrar, ou false, se der erro.
+        return $resultado;
+    }
+
+    private function setTelefone(string $telefone) : void
+    {
+        $this->telefone = $telefone;
+    }
+
+    private function setEmail($email) 
     {
         $this->email = $email;
     }
