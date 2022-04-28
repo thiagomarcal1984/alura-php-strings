@@ -21,15 +21,21 @@ $contato = new App\Alura\Contato($_POST['email'], $_POST['endereco'], $_POST['ce
 
 <div class="mx-5 my-5">
 <h1>Cadastro feito com sucesso.</h1>
-<p><?php echo $usuario->getTratamento(); ?>, seguem os dados de sua conta:</p>
+<?php 
+    // O comando htmlspecialchars converte caracteres de HTML em entidades HTML.
+    // Por exemplo: ó => &oacute;      & => &amp;
+    // Isso é uma medida de segurança para evitar execução de código malicioso na sua página: 
+    // <script>alert("Código executado.");</script> // Insira isso em um dos campos sem htmlspecialchars, e o código será executado.
+?>
+<p><?php echo htmlspecialchars($usuario->getTratamento()); ?>, seguem os dados de sua conta:</p>
 <ul class="list-group">
-    <li class="list-group-item">Primeiro nome: <?php echo $usuario->getNome(); ?></li>
-    <li class="list-group-item">Sobrenome: <?= $usuario->getSobrenome(); ?></li>
-    <li class="list-group-item">Usuário: <?= $contato->getUsuario(); ?> </li>
-    <li class="list-group-item">Senha: <?= $usuario->getSenha(); ?> </li>
-    <li class="list-group-item">Telefone: <?= $contato->getTelefone(); ?></li>
-    <li class="list-group-item">Email: <?= $contato->getEmail(); ?></li>
-    <li class="list-group-item">Endereço: <?= $contato->getEnderecoCep(); ?></li>
+    <li class="list-group-item">Primeiro nome: <?php echo htmlspecialchars($usuario->getNome()); ?></li>
+    <li class="list-group-item">Sobrenome: <?= htmlspecialchars($usuario->getSobrenome()); ?></li>
+    <li class="list-group-item">Usuário: <?= htmlspecialchars($contato->getUsuario()); ?></li>
+    <li class="list-group-item">Senha: <?= htmlspecialchars($usuario->getSenha()); ?></li>
+    <li class="list-group-item">Telefone: <?= htmlspecialchars($contato->getTelefone()); ?></li>
+    <li class="list-group-item">Email: <?= htmlspecialchars($contato->getEmail()); ?></li>
+    <li class="list-group-item">Endereço: <?= htmlspecialchars($contato->getEnderecoCep()); ?></li>
 </ul>
 </div>
 </body>
