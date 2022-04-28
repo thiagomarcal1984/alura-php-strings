@@ -7,11 +7,27 @@ class Usuario
     private $nome;
     private $sobrenome;
     private $senha;
+    private $tratamento;
 
-    public function __construct(string $nome, string $senha)
+    public function __construct(string $nome, string $senha, string $genero)
     {
         $this->setNomeSobrenome($nome);
         $this->validaSenha($senha);
+        $this->adicionaTratamentoAoSobrenome($nome, $genero);
+    }
+
+    private function adicionaTratamentoAoSobrenome(string $nome, string $genero)
+    {
+        // A função preg_replace retorna uma string que substitui o conteúdo de uma string original. 
+        // Há 4 parâmetros: a expressão regular, a string substituta, a string de origem e o limite de substituição (inteiro).
+        if ($genero === 'M') {
+            $this->tratamento = preg_replace("/^(\w+)\b/", "Sr. ", $nome, 1); 
+            // \w casa com letras maiúsculas e minúsculas; \b casa com o fim de uma palavra
+        }
+        if ($genero === 'F') {
+            $this->tratamento = preg_replace("/^(\w+)\b/", "Srª. ", $nome, 1); 
+            // \w casa com letras maiúsculas e minúsculas; \b casa com o fim de uma palavra
+        }
     }
 
     private  function setNomeSobrenome($nome)
@@ -54,5 +70,10 @@ class Usuario
         } else {
             $this->senha = "Senha inválida";
         }
+    }
+
+    public function getTratamento()  : string
+    {
+        return $this->tratamento;
     }
 }
